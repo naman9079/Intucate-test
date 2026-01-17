@@ -7,7 +7,7 @@ function App() {
   const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
-    // Check for existing session
+    
     const token = localStorage.getItem('auth_token');
     const email = localStorage.getItem('user_email');
     

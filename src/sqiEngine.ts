@@ -10,9 +10,9 @@ export function computeSQI(studentData: StudentData, diagnosticPromptVersion: st
   const scoredAttempts = attempts.map(attempt => {
     const base = attempt.correct ? attempt.marks : -attempt.neg_marks;
     
-    let weighted = base * 
+    let weighted = base *  
       IMPORTANCE_WEIGHTS[attempt.importance] * 
-      DIFFICULTY_WEIGHTS[attempt.difficulty] * 
+      DIFFICULTY_WEIGHTS[attempt.difficulty] *    
       TYPE_WEIGHTS[attempt.type];
     
     const timeRatio = attempt.time_spent_sec / attempt.expected_time_sec;
@@ -39,9 +39,9 @@ export function computeSQI(studentData: StudentData, diagnosticPromptVersion: st
   });
   
   const maxPossible = scoredAttempts.reduce((sum, attempt) => {
-    return sum + attempt.marks * 
-      IMPORTANCE_WEIGHTS[attempt.importance] * 
-      DIFFICULTY_WEIGHTS[attempt.difficulty] * 
+    return sum + attempt.marks *
+      IMPORTANCE_WEIGHTS[attempt.importance] *
+      DIFFICULTY_WEIGHTS[attempt.difficulty] *
       TYPE_WEIGHTS[attempt.type];
   }, 0);
   
@@ -59,9 +59,9 @@ export function computeSQI(studentData: StudentData, diagnosticPromptVersion: st
   const topic_scores: TopicScore[] = Array.from(topicMap.entries()).map(([topic, attempts]) => {
     const topicWeighted = attempts.reduce((sum, a) => sum + a.weighted, 0);
     const topicMax = attempts.reduce((sum, a) => {
-      return sum + a.marks * 
-        IMPORTANCE_WEIGHTS[a.importance] * 
-        DIFFICULTY_WEIGHTS[a.difficulty] * 
+      return sum + a.marks *
+        IMPORTANCE_WEIGHTS[a.importance] *
+        DIFFICULTY_WEIGHTS[a.difficulty] *
         TYPE_WEIGHTS[a.type];
     }, 0);
     
@@ -82,9 +82,9 @@ export function computeSQI(studentData: StudentData, diagnosticPromptVersion: st
     const [topic, concept] = key.split(':::');
     const conceptWeighted = attempts.reduce((sum, a) => sum + a.weighted, 0);
     const conceptMax = attempts.reduce((sum, a) => {
-      return sum + a.marks * 
-        IMPORTANCE_WEIGHTS[a.importance] * 
-        DIFFICULTY_WEIGHTS[a.difficulty] * 
+      return sum + a.marks *
+        IMPORTANCE_WEIGHTS[a.importance] *
+        DIFFICULTY_WEIGHTS[a.difficulty] *
         TYPE_WEIGHTS[a.type];
     }, 0);
     
@@ -121,7 +121,7 @@ export function computeSQI(studentData: StudentData, diagnosticPromptVersion: st
     let weight = 0;
     if (wrongAtLeastOnce) weight += 0.4;
     
-    const importanceWeight = conceptAttempts.reduce((sum, a) => 
+    const importanceWeight = conceptAttempts.reduce((sum, a) =>
       sum + IMPORTANCE_WEIGHTS[a.importance], 0) / conceptAttempts.length;
     weight += 0.25 * importanceWeight;
     
